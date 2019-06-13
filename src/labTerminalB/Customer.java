@@ -1,9 +1,10 @@
-package labTerminalB;
+package labterminalB;
 
 import java.util.Enumeration;
 import java.util.Vector;
-
 public class Customer {
+
+
 		private String _name;
 		private Vector<Rental> _rentals = new Vector<Rental>();
 		public Customer (String name){
@@ -39,21 +40,7 @@ public class Customer {
 			double thisAmount = 0;
 			Rental each = (Rental) rentals.nextElement();
 			//determine amounts for each line
-			switch (each.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.getDaysRented() > 2)
-					thisAmount += (each.getDaysRented() - 2) * 1.5;
-				break;
-			case Movie.NEW_RELEASE:
-				thisAmount += each.getDaysRented() * 3;
-				break;
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.getDaysRented() > 3)
-					thisAmount += (each.getDaysRented() - 3) * 1.5;
-				break;
-			}
+			thisAmount = movieMethod(thisAmount, each);
 			// add frequent renter points
 			frequentRenterPoints ++;
 			// add bonus for a two day new release rental
@@ -73,4 +60,35 @@ public class Customer {
 		" frequent renter points";
 		return result;
 	}
+		// #4
+		
+		
+		/*
+		*	If the movie is REGULAR then the rent will be Rs. 2 for 2 days and If Movie is rented for more than 2 days then the rent will be increased by Rs. 1.5 per day.
+		*	If movie is NEW_RELEASED then rent will be Rs. 3 per day. And the rent will be increase as the number of the days are increased.
+		*	If Category of movie is CHILDREN, then the rent is Rs. 1.5 or 3 days. If number of days is more than 3 then increase the rent by Rs. 1.5 each day
+		*   @pram thisamount() and each() calculate the rent of the movie according to days
+		*   @return return the total amount of the movie which rented. 
+*/
+		
+		//#5:-
+		private double movieMethod(double thisAmount,string Rental each) {
+			switch (each.getMovie().getPriceCode()) {
+			case Movie.REGULAR:
+				thisAmount += 2;
+				if (each.getDaysRented() > 2)
+					thisAmount += (each.getDaysRented() - 2) * 1.5;
+				break;
+			case Movie.NEW_RELEASE:
+				thisAmount += each.getDaysRented() * 3;
+				break;
+			case Movie.CHILDRENS:
+				thisAmount += 1.5;
+				if (each.getDaysRented() > 3)
+					thisAmount += (each.getDaysRented() - 3) * 1.5;
+				break;
+			}
+			return thisAmount;
+		}
 }
+
